@@ -1,57 +1,21 @@
 import express from "express";
+import {
+  deleteControllerRouteHotel,
+  getAllControllerRouteHotel,
+  getControllerRouteHotel,
+  postControllerRouteHotel,
+  updateControllerRouteHotel,
+} from "../controllers/hotels.js";
 const hotels = express.Router();
-import Hotel from "../models/Hotels.js";
+
 // CREATE
-hotels.post("/", async (req, res) => {
-  const newHotel = new Hotel(req.body);
-  try {
-    const saveHotels = await newHotel.save();
-    res.status(200).json(saveHotels);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+hotels.post("/", postControllerRouteHotel);
 // UPDATE
-hotels.put("/:id", async (req, res) => {
-  try {
-    const updateHotels = await Hotel.findByIdAndUpdate(
-      req.params.id,
-      {
-        $set: req.body,
-      },
-      { new: true }
-    );
-    console.log(updateHotels);
-    res.status(200).json(updateHotels);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+hotels.put("/:id", updateControllerRouteHotel);
 // DELETE
-hotels.delete("/:id", async (req, res) => {
-  try {
-    await Hotel.findByIdAndDelete(req.params.id);
-    res.status(200).json("User is deleted");
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+hotels.delete("/:id", deleteControllerRouteHotel);
 // GET
-hotels.get("/:id", async (req, res) => {
-  try {
-    const findHotel = await Hotel.findById(req.params.id);
-    res.status(200).json(findHotel);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+hotels.get("/:id", getControllerRouteHotel);
 // GET ALL
-hotels.get("/", async (req, res) => {
-  try {
-    const findHotels = await Hotel.find(req.params.id);
-    res.status(200).json(findHotels);
-  } catch (error) {
-    res.status(500).json(error);
-  }
-});
+hotels.get("/", getAllControllerRouteHotel);
 export default hotels;

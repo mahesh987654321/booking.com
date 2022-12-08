@@ -16,14 +16,23 @@ const connect = async () => {
     await mongoose.connect(`${process.env.MONGO}`);
     console.log("connected to mongodb");
   } catch (error) {
-    throw(error);
+    throw error;
   }
 };
 app.use("/api/auth", authRoute);
 app.use("/api/users", users);
 app.use("/api/hotels", hotels);
 app.use("/api/rooms", rooms);
-
+app.use((err, req, res, next) => {
+  const errStatus = err.status || 500;
+  const errMessage = err.message || "Something went wrong";
+  return res.status(errStatus).json({
+    message: errMessage,
+    stack: err.stack,
+    status: errStatus,
+    success: false,
+  });
+});
 app.listen(port, () => {
   connect();
   console.log(`Example app listening on port ${port}`);
