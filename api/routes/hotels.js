@@ -39,11 +39,19 @@ hotels.delete("/:id", async (req, res) => {
 // GET
 hotels.get("/:id", async (req, res) => {
   try {
-    const deleteHotels = await Hotel.findById(req.params.id);
-    res.status(200).json(deleteHotels);
+    const findHotel = await Hotel.findById(req.params.id);
+    res.status(200).json(findHotel);
   } catch (error) {
     res.status(500).json(error);
   }
 });
 // GET ALL
+hotels.get("/", async (req, res) => {
+  try {
+    const findHotels = await Hotel.find(req.params.id);
+    res.status(200).json(findHotels);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 export default hotels;
