@@ -7,6 +7,7 @@ import hotels from "./routes/hotels.js";
 import rooms from "./routes/rooms.js";
 const port = process.env.PORT || 5000;
 const app = express();
+app.use(express.json());
 mongoose.set("strictQuery", true);
 dotenv.config();
 
@@ -15,7 +16,7 @@ const connect = async () => {
     await mongoose.connect(`${process.env.MONGO}`);
     console.log("connected to mongodb");
   } catch (error) {
-    handleError(error);
+    throw(error);
   }
 };
 app.use("/api/auth", authRoute);
