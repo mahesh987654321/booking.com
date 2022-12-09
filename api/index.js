@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import authRoute from "./routes/auth.js";
 import users from "./routes/users.js";
+import cookieParser from "cookie-parser";
 import hotels from "./routes/hotels.js";
 import rooms from "./routes/rooms.js";
 const port = process.env.PORT || 5000;
@@ -19,6 +20,7 @@ const connect = async () => {
     throw error;
   }
 };
+app.use(cookieParser());
 app.use("/api/auth", authRoute);
 app.use("/api/users", users);
 app.use("/api/hotels", hotels);
