@@ -20,7 +20,7 @@ export const updateControllerRouteHotel = async (req, res, next) => {
       },
       { new: true }
     );
-    console.log(updateHotels);
+
     res.status(200).json(updateHotels);
   } catch (error) {
     next(error);
@@ -30,7 +30,7 @@ export const updateControllerRouteHotel = async (req, res, next) => {
 export const deleteControllerRouteHotel = async (req, res, next) => {
   try {
     await Hotel.findByIdAndDelete(req.params.id);
-    res.status(200).json("User is deleted");
+    res.status(200).json("Hotel is deleted");
   } catch (error) {
     next(error);
   }
@@ -49,7 +49,7 @@ export const getAllControllerRouteHotel = async (req, res, next) => {
   // if (errMess) return next(errorMessage(404, "Your is not found"));
 
   try {
-    const findHotels = await Hotel.find(req.params.id);
+    const findHotels = await Hotel.find();
     res.status(200).json(findHotels);
   } catch (error) {
     next(error);
