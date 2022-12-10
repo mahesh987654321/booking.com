@@ -24,7 +24,7 @@ export const updateControllerRouteHotel = async (req, res, next) => {
     res.status(200).json(updateHotels);
   } catch (error) {
     next(error);
-  }
+  } 
 };
 // DELETE
 export const deleteControllerRouteHotel = async (req, res, next) => {
