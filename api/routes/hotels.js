@@ -6,16 +6,17 @@ import {
   postControllerRouteHotel,
   updateControllerRouteHotel,
 } from "../controllers/hotels.js";
+import { verifyAdmin, verifyUser } from "../utils/verifyToken.js";
 const hotels = express.Router();
 
 // CREATE
-hotels.post("/", postControllerRouteHotel);
+hotels.post("/", verifyAdmin, postControllerRouteHotel);
 // UPDATE
-hotels.put("/:id", updateControllerRouteHotel);
+hotels.put("/:id", verifyAdmin, updateControllerRouteHotel);
 // DELETE
-hotels.delete("/:id", deleteControllerRouteHotel);
+hotels.delete("/:id", verifyAdmin, deleteControllerRouteHotel);
 // GET
-hotels.get("/:id", getControllerRouteHotel);
+hotels.get("/:id", verifyUser, getControllerRouteHotel);
 // GET ALL
-hotels.get("/", getAllControllerRouteHotel);
+hotels.get("/", verifyAdmin, getAllControllerRouteHotel);
 export default hotels;

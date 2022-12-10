@@ -5,16 +5,17 @@ import {
   getControllerRouteUser,
   updateControllerRouteUser,
 } from "../controllers/users.js";
-import { verifyJwt } from "../utils/verifyToken.js";
+import { verifyAdmin, verifyJwt, verifyUser } from "../utils/verifyToken.js";
 
 const users = express.Router();
 
 // UPDATE
-users.put("/:id", updateControllerRouteUser);
+users.put("/:id", verifyUser, updateControllerRouteUser);
 // DELETE
-users.delete("/:id", deleteControllerRouteUser);
+users.delete("/:id", verifyUser, verifyUser, deleteControllerRouteUser);
 // GET
-users.get("/:id", getControllerRouteUser);
+users.get("/:id", verifyUser, getControllerRouteUser);
 // GET ALL
-users.get("/", verifyJwt, getAllControllerRouteUser);
+users.get("/", verifyAdmin, getAllControllerRouteUser);
+
 export default users;
